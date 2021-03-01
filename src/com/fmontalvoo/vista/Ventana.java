@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +23,8 @@ import com.fmontalvoo.conversor.Conversor;
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = 2375984707135285564L;
+
+	public static final String PROPERTIES = "com.fmontalvoo.i18n.Etiquetas";
 	private final String CONSOLAS = "Consolas";
 
 	private JPanel contentPane;
@@ -70,7 +73,7 @@ public class Ventana extends JFrame {
 	}
 
 	public Ventana() {
-		setTitle("Calculadora Subnetting");
+		setTitle(ResourceBundle.getBundle(PROPERTIES).getString("tituloVentana"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 480);
 		contentPane = new JPanel();
@@ -85,10 +88,10 @@ public class Ventana extends JFrame {
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 10.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		JLabel lblIP = new JLabel("IP:");
+		JLabel lblIP = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblIP") + ":");
 		GridBagConstraints gbc_lblIP = new GridBagConstraints();
 		gbc_lblIP.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIP.anchor = GridBagConstraints.CENTER;
+		gbc_lblIP.anchor = GridBagConstraints.WEST;
 		gbc_lblIP.gridx = 0;
 		gbc_lblIP.gridy = 0;
 		gbc_lblIP.weightx = 1;
@@ -150,7 +153,7 @@ public class Ventana extends JFrame {
 		contentPane.add(txtBits, gbc_txtBits);
 		txtBits.setColumns(1);
 
-		btnAceptar = new JButton("Acpetar");
+		btnAceptar = new JButton(ResourceBundle.getBundle(PROPERTIES).getString("btnAceptar"));
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAceptar.gridx = 6;
@@ -158,7 +161,7 @@ public class Ventana extends JFrame {
 		gbc_btnAceptar.weightx = 2;
 		contentPane.add(btnAceptar, gbc_btnAceptar);
 
-		lblSubRedes = new JLabel("Sub Redes:");
+		lblSubRedes = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblSubRedes") + ":");
 		GridBagConstraints gbc_lblSubRedes = new GridBagConstraints();
 		gbc_lblSubRedes.anchor = GridBagConstraints.WEST;
 		gbc_lblSubRedes.insets = new Insets(0, 0, 5, 5);
@@ -177,7 +180,7 @@ public class Ventana extends JFrame {
 		gbc_cbxSubRedes.weightx = 5;
 		contentPane.add(cbxSubRedes, gbc_cbxSubRedes);
 
-		btnReiniciar = new JButton("Reiniciar");
+		btnReiniciar = new JButton(ResourceBundle.getBundle(PROPERTIES).getString("btnReiniciar"));
 		GridBagConstraints gbc_btnReiniciar = new GridBagConstraints();
 		gbc_btnReiniciar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnReiniciar.gridx = 6;
@@ -186,7 +189,8 @@ public class Ventana extends JFrame {
 		contentPane.add(btnReiniciar, gbc_btnReiniciar);
 
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Subnetting", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(null, ResourceBundle.getBundle(PROPERTIES).getString("tituloPanel"),
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridwidth = 7;
@@ -201,7 +205,7 @@ public class Ventana extends JFrame {
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		lblClase = new JLabel("Clase:");
+		lblClase = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblClase") + ":");
 		GridBagConstraints gbc_lblClase = new GridBagConstraints();
 		gbc_lblClase.insets = new Insets(0, 0, 5, 5);
 		gbc_lblClase.anchor = GridBagConstraints.WEST;
@@ -222,7 +226,7 @@ public class Ventana extends JFrame {
 		gbc_lblClass.weightx = 4;
 		panel.add(lblClass, gbc_lblClass);
 
-		lblMascara = new JLabel("Mascara:");
+		lblMascara = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblMascara") + ":");
 		GridBagConstraints gbc_lblMascara = new GridBagConstraints();
 		gbc_lblMascara.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMascara.anchor = GridBagConstraints.WEST;
@@ -261,7 +265,7 @@ public class Ventana extends JFrame {
 		gbc_lblMaskBin.weightx = 5;
 		panel.add(lblMaskBin, gbc_lblMaskBin);
 
-		lblWildcard = new JLabel("Wildcard:");
+		lblWildcard = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblWildcard") + ":");
 		GridBagConstraints gbc_lblWildcard = new GridBagConstraints();
 		gbc_lblWildcard.insets = new Insets(0, 0, 5, 5);
 		gbc_lblWildcard.anchor = GridBagConstraints.WEST;
@@ -300,7 +304,7 @@ public class Ventana extends JFrame {
 		gbc_lblWildcardBin.weightx = 5;
 		panel.add(lblWildcardBin, gbc_lblWildcardBin);
 
-		lblIPRed = new JLabel("IP Red:");
+		lblIPRed = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblIPRed") + ":");
 		GridBagConstraints gbc_lblIPRed = new GridBagConstraints();
 		gbc_lblIPRed.insets = new Insets(0, 0, 5, 5);
 		gbc_lblIPRed.anchor = GridBagConstraints.WEST;
@@ -339,7 +343,7 @@ public class Ventana extends JFrame {
 		gbc_lblRedBin.weightx = 5;
 		panel.add(lblRedBin, gbc_lblRedBin);
 
-		lblHostMin = new JLabel("IP HostMin:");
+		lblHostMin = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblHostMin") + ":");
 		GridBagConstraints gbc_lblHostMin = new GridBagConstraints();
 		gbc_lblHostMin.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHostMin.anchor = GridBagConstraints.WEST;
@@ -378,7 +382,7 @@ public class Ventana extends JFrame {
 		gbc_lblHostMinBin.weightx = 5;
 		panel.add(lblHostMinBin, gbc_lblHostMinBin);
 
-		lblHostMax = new JLabel("IP HostMax:");
+		lblHostMax = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblHostMax") + ":");
 		GridBagConstraints gbc_lblHostMax = new GridBagConstraints();
 		gbc_lblHostMax.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHostMax.anchor = GridBagConstraints.WEST;
@@ -417,7 +421,7 @@ public class Ventana extends JFrame {
 		gbc_lblHostMaxBin.weightx = 5;
 		panel.add(lblHostMaxBin, gbc_lblHostMaxBin);
 
-		lblBroadcast = new JLabel("IP Broadcast:");
+		lblBroadcast = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblBroadcast") + ":");
 		GridBagConstraints gbc_lblBroadcast = new GridBagConstraints();
 		gbc_lblBroadcast.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBroadcast.anchor = GridBagConstraints.WEST;
@@ -456,7 +460,7 @@ public class Ventana extends JFrame {
 		gbc_lblBroadcastBin.weightx = 5;
 		panel.add(lblBroadcastBin, gbc_lblBroadcastBin);
 
-		lblHosts = new JLabel("Hosts:");
+		lblHosts = new JLabel(ResourceBundle.getBundle(PROPERTIES).getString("lblHosts") + ":");
 		GridBagConstraints gbc_lblHosts = new GridBagConstraints();
 		gbc_lblHosts.insets = new Insets(0, 0, 0, 5);
 		gbc_lblHosts.anchor = GridBagConstraints.WEST;

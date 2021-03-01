@@ -2,6 +2,7 @@ package com.fmontalvoo.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -47,7 +48,7 @@ public class Controlador implements ActionListener {
 	}
 
 	public void submit() {
-		if (validar(this.vista.txtMascara.getText()) || this.conversor.validar(this.vista.txtIP.getText())) {
+		if (validar(this.vista.txtMascara.getText()) && this.conversor.validar(this.vista.txtIP.getText())) {
 			octetos = this.vista.txtIP.getText().split("\\.");
 			mascara = Integer.valueOf(this.vista.txtMascara.getText());
 			ipBinaria = this.conversor.ipBinaria(octetos);
@@ -66,8 +67,9 @@ public class Controlador implements ActionListener {
 			} else
 				subnetting();
 		} else
-			JOptionPane.showMessageDialog(this.vista, "Por favor verifique la IP e intentelo nuevamente",
-					"IP mal igresada", 0);
+			JOptionPane.showMessageDialog(this.vista,
+					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionErrorIP"),
+					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloErrorIP"), 0);
 	}
 
 	public void reset() {
@@ -113,6 +115,8 @@ public class Controlador implements ActionListener {
 	}
 
 	private boolean validar(String linea) {
+		if (linea == null || linea.isEmpty())
+			return false;
 		try {
 			if (Integer.parseInt(linea) > 30)
 				return false;
@@ -136,11 +140,13 @@ public class Controlador implements ActionListener {
 					this.vista.cbxSubRedes.addItem(subRedes[i]);
 				}
 			} else
-				JOptionPane.showMessageDialog(this.vista, "La mascara de red no puede ser mayor a 30",
-						"Error de mascara", 0);
+				JOptionPane.showMessageDialog(this.vista,
+						ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionErrorMascara"),
+						ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloErrorMascara"), 0);
 		} else
-			JOptionPane.showMessageDialog(this.vista, "Por favor verifique que los datos ingresados sean numericos",
-					"Macara de Red mal ingresada", 0);
+			JOptionPane.showMessageDialog(this.vista,
+					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionMascaraIncorrecta"),
+					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloMascaraIncorrecta"), 0);
 	}
 
 	private void showAnswer() {

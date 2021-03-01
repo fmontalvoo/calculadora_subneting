@@ -110,6 +110,8 @@ public class Conversor {
 	}
 
 	public boolean validar(String datos) {
+		if (datos == null || datos.isEmpty())
+			return false;
 
 		String octetos[] = datos.split("\\.");
 
