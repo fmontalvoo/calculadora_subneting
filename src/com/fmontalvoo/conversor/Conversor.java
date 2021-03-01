@@ -1,20 +1,21 @@
+package com.fmontalvoo.conversor;
 
 public class Conversor {
 
-	public int binario_decimal(String binario, int base) {
+	public int binarioDecimal(String binario, int base) {
 		int resultado = 0;
 		for (int i = binario.length() - 1, j = 0; i >= 0; i--, j++)
 			resultado += Integer.parseInt("" + binario.charAt(i)) * elevar(base, j);
 		return resultado;
 	}
 
-	public String decimal_binario(int numero) {
+	public String decimalBinario(int numero) {
 		String binario = "";
 		if (numero == 0)
 			return "0";
 		for (int i = numero; i > 0; i /= 2)
 			binario += i % 2;
-		return invertir(binario);
+		return invertirCadena(binario);
 	}
 
 	public String clase(String octetos[]) {
@@ -36,9 +37,9 @@ public class Conversor {
 		String binarios = "";
 		for (int i = 0; i < octetos.length; i++)
 			if (i < 3)
-				binarios += completar(decimal_binario(Integer.valueOf(octetos[i])), 8) + ".";
+				binarios += completar(decimalBinario(Integer.valueOf(octetos[i])), 8) + ".";
 			else
-				binarios += completar(decimal_binario(Integer.valueOf(octetos[i])), 8);
+				binarios += completar(decimalBinario(Integer.valueOf(octetos[i])), 8);
 		return binarios;
 	}
 
@@ -46,19 +47,19 @@ public class Conversor {
 		String decimales = "";
 		for (int i = 0; i < octetos.length; i++)
 			if (i < 3)
-				decimales += binario_decimal(octetos[i], 2) + ".";
+				decimales += binarioDecimal(octetos[i], 2) + ".";
 			else
-				decimales += binario_decimal(octetos[i], 2);
+				decimales += binarioDecimal(octetos[i], 2);
 		return decimales;
 	}
 
-	public String ipRed_Broadcats(String ipBinaria, int mascara, String a, String b) {
+	public String ipRedBroadcast(String ipBinaria, int mascara, String a, String b) {
 		String ip = ipBinaria.replace(".", "");
 		String ipRes = ip.substring(0, mascara) + "" + ip.substring(mascara, 32).replace(a, b);
 		return divIP(ipRes);
 	}
 
-	public String mascara_Red(String ipBinaria, int mascara) {
+	public String mascaraRed(String ipBinaria, int mascara) {
 		String ip = ipBinaria.replace(".", "");
 		String ipRes = ip.substring(0, mascara).replace("0", "1") + "" + ip.substring(mascara, 32).replace("1", "0");
 		return divIP(ipRes);
@@ -72,11 +73,12 @@ public class Conversor {
 
 	public String ipHost(String octetos[], int n) {
 		String host = "";
-		for (int i = 0; i < octetos.length; i++)
+		for (int i = 0; i < octetos.length; i++) {
 			if (i < 3)
 				host += octetos[i] + ".";
 			else
 				host += (Integer.valueOf(octetos[i]) + n);
+		}
 		return host;
 	}
 
@@ -86,7 +88,7 @@ public class Conversor {
 		for (int i = 0; i < numRedes; i++) {
 			subRedes[i] = (i + 1) + ") "
 					+ ipDecimal(divIP(ip.substring(0, mascara)
-							+ completar("" + decimal_binario(Integer.valueOf(i)), nuevaMascara - mascara)
+							+ completar("" + decimalBinario(Integer.valueOf(i)), nuevaMascara - mascara)
 							+ ip.substring(nuevaMascara, 32)).split("\\."))
 					+ "/" + nuevaMascara;
 		}
@@ -95,16 +97,12 @@ public class Conversor {
 	}
 
 	public int elevar(int b, int e) {
-		int res = b;
 		if (e == 0)
-			res = 1;
-		else
-			for (int i = 1; i < e; i++)
-				res *= b;
-		return res;
+			return 1;
+		return b * elevar(b, e - 1);
 	}
 
-	public String invertir(String numero) {
+	public String invertirCadena(String numero) {
 		String resultado = "";
 		for (int i = numero.length() - 1; i >= 0; i--)
 			resultado += numero.charAt(i);
