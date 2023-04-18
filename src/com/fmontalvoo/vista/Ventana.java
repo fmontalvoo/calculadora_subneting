@@ -1,6 +1,7 @@
 package com.fmontalvoo.vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -45,7 +46,7 @@ public class Ventana extends JFrame {
 	private JLabel lblHostMax;
 	private JLabel lblBroadcast;
 	private JLabel lblHosts;
-	private JLabel lblDeveloper;
+	public JLabel lblDeveloper;
 
 	public JLabel lblClass;
 	public JLabel lblMaskDec;
@@ -478,7 +479,9 @@ public class Ventana extends JFrame {
 		gbc_lblHost.weightx = 4;
 		panel.add(lblHost, gbc_lblHost);
 
-		lblDeveloper = new JLabel("fmontalvoo.com");
+		lblDeveloper = new JLabel("<html><a href=''>fmontalvoo.com</a></html>");
+		lblDeveloper.setForeground(Color.BLUE.darker());
+		lblDeveloper.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_lblDeveloper = new GridBagConstraints();
 		gbc_lblDeveloper.gridx = 6;
 		gbc_lblDeveloper.gridy = 4;

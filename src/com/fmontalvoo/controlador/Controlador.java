@@ -1,15 +1,22 @@
 package com.fmontalvoo.controlador;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import com.fmontalvoo.conversor.Conversor;
 import com.fmontalvoo.vista.Ventana;
 
-public class Controlador implements ActionListener {
+public class Controlador implements ActionListener, MouseListener {
 	private Ventana vista;
 	private Conversor conversor;
 
@@ -24,6 +31,8 @@ public class Controlador implements ActionListener {
 	private String mascaraRed;
 	private String wildcard;
 	private String hosts;
+	
+	Logger log = Logger.getLogger(Controlador.class.getName());
 
 	public Controlador(Ventana vista, Conversor conversor) {
 		this.vista = vista;
@@ -35,6 +44,8 @@ public class Controlador implements ActionListener {
 		this.vista.btnReiniciar.addActionListener(this);
 
 		this.vista.cbxSubRedes.addActionListener(this);
+
+		this.vista.lblDeveloper.addMouseListener(this);
 	}
 
 	@Override
@@ -45,6 +56,33 @@ public class Controlador implements ActionListener {
 			reset();
 		if (evt.getSource() == this.vista.cbxSubRedes)
 			selectSubnet();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent evt) {
+		if (evt.getSource() == this.vista.lblDeveloper)
+			try {
+				Desktop.getDesktop().browse(new URI("https://fmontalvoo.com/"));
+			} catch (IOException | URISyntaxException e) {
+				log.severe(e.getMessage());
+				e.printStackTrace();
+			}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent evt) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent evt) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent evt) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent evt) {
 	}
 
 	public void submit() {
