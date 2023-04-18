@@ -68,9 +68,6 @@ public class Ventana extends JFrame {
 	public JLabel lblHostMaxBin;
 	public JLabel lblBroadcastBin;
 
-	public static void main(String[] args) {
-		new Controlador(new Ventana(), new Conversor());
-	}
 
 	public Ventana() {
 		setTitle(ResourceBundle.getBundle(PROPERTIES).getString("tituloVentana"));

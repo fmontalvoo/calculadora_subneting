@@ -2,6 +2,19 @@ package com.fmontalvoo.conversor;
 
 public class Conversor {
 
+	private static Conversor INSTANCE;
+
+	private Conversor() {
+
+	}
+
+	public static Conversor getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new Conversor();
+
+		return INSTANCE;
+	}
+
 	public int binarioDecimal(String binario, int base) {
 		int resultado = 0;
 		for (int i = binario.length() - 1, j = 0; i >= 0; i--, j++)
@@ -10,12 +23,12 @@ public class Conversor {
 	}
 
 	public String decimalBinario(int numero) {
-		String binario = "";
+		StringBuilder binario = new StringBuilder();
 		if (numero == 0)
 			return "0";
 		for (int i = numero; i > 0; i /= 2)
-			binario += i % 2;
-		return invertirCadena(binario);
+			binario.append(i % 2);
+		return invertirCadena(binario.toString());
 	}
 
 	public String clase(String octetos[]) {
