@@ -17,8 +17,8 @@ import com.fmontalvoo.conversor.Conversor;
 import com.fmontalvoo.vista.Ventana;
 
 public class Controlador implements ActionListener, MouseListener {
-	private Ventana vista;
-	private Conversor conversor;
+	private final Ventana vista;
+	private final Conversor conversor;
 
 	private String octetos[];
 	private int mascara;
@@ -31,8 +31,7 @@ public class Controlador implements ActionListener, MouseListener {
 	private String mascaraRed;
 	private String wildcard;
 	private String hosts;
-	
-	Logger log = Logger.getLogger(Controlador.class.getName());
+	private Logger log = Logger.getLogger(Controlador.class.getName());
 
 	public Controlador(Ventana vista, Conversor conversor) {
 		this.vista = vista;
@@ -125,7 +124,7 @@ public class Controlador implements ActionListener, MouseListener {
 		this.vista.lblRedDec.setText("");
 		this.vista.lblRedBin.setText("");
 		this.vista.lblHostMinDec.setText("");
-		this.vista.lblHostMinDec.setText("");
+		this.vista.lblHostMinBin.setText("");
 		this.vista.lblHostMaxDec.setText("");
 		this.vista.lblHostMaxBin.setText("");
 		this.vista.lblBroadcastDec.setText("");

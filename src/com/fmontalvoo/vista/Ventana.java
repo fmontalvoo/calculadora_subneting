@@ -18,15 +18,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.fmontalvoo.controlador.Controlador;
-import com.fmontalvoo.conversor.Conversor;
-
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = 2375984707135285564L;
 
+	private static final String CONSOLAS = "Consolas";
 	public static final String PROPERTIES = "com.fmontalvoo.i18n.Etiquetas";
-	private final String CONSOLAS = "Consolas";
 
 	private JPanel contentPane;
 	public JTextField txtIP;
@@ -68,7 +65,6 @@ public class Ventana extends JFrame {
 	public JLabel lblHostMinBin;
 	public JLabel lblHostMaxBin;
 	public JLabel lblBroadcastBin;
-
 
 	public Ventana() {
 		setTitle(ResourceBundle.getBundle(PROPERTIES).getString("tituloVentana"));
