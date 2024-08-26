@@ -17,8 +17,8 @@ import com.fmontalvoo.conversor.Conversor;
 import com.fmontalvoo.vista.Ventana;
 
 public class Controlador implements ActionListener, MouseListener {
-	private Ventana vista;
-	private Conversor conversor;
+	private final Ventana vista;
+	private final Conversor conversor;
 
 	private String octetos[];
 	private int mascara;
@@ -31,7 +31,7 @@ public class Controlador implements ActionListener, MouseListener {
 	private String mascaraRed;
 	private String wildcard;
 	private String hosts;
-	
+
 	Logger log = Logger.getLogger(Controlador.class.getName());
 
 	public Controlador(Ventana vista, Conversor conversor) {
@@ -50,23 +50,27 @@ public class Controlador implements ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() == this.vista.btnAceptar)
+		if (evt.getSource() == this.vista.btnAceptar) {
 			submit();
-		if (evt.getSource() == this.vista.btnReiniciar)
+		}
+		if (evt.getSource() == this.vista.btnReiniciar) {
 			reset();
-		if (evt.getSource() == this.vista.cbxSubRedes)
+		}
+		if (evt.getSource() == this.vista.cbxSubRedes) {
 			selectSubnet();
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent evt) {
-		if (evt.getSource() == this.vista.lblDeveloper)
+		if (evt.getSource() == this.vista.lblDeveloper) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://fmontalvoo.com/"));
-			} catch (IOException | URISyntaxException e) {
-				log.severe(e.getMessage());
-				e.printStackTrace();
+			} catch (IOException | URISyntaxException ex) {
+				log.severe(ex.getMessage());
+				ex.printStackTrace();
 			}
+		}
 	}
 
 	@Override
@@ -102,12 +106,12 @@ public class Controlador implements ActionListener, MouseListener {
 				this.vista.cbxSubRedes.removeAllItems();
 				this.vista.cbxSubRedes.addItem("");
 				showAnswer();
-			} else
+			} else {
 				subnetting();
-		} else
-			JOptionPane.showMessageDialog(this.vista,
-					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionErrorIP"),
-					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloErrorIP"), 0);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this.vista, getBundle("descripcionErrorIP"), getBundle("tituloErrorIP"), 0);
+		}
 	}
 
 	public void reset() {
@@ -178,17 +182,15 @@ public class Controlador implements ActionListener, MouseListener {
 					this.vista.cbxSubRedes.addItem(subRedes[i]);
 				}
 			} else
-				JOptionPane.showMessageDialog(this.vista,
-						ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionErrorMascara"),
-						ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloErrorMascara"), 0);
+				JOptionPane.showMessageDialog(this.vista, getBundle("descripcionErrorMascara"),
+						getBundle("tituloErrorMascara"), 0);
 		} else
-			JOptionPane.showMessageDialog(this.vista,
-					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("descripcionMascaraIncorrecta"),
-					ResourceBundle.getBundle(Ventana.PROPERTIES).getString("tituloMascaraIncorrecta"), 0);
+			JOptionPane.showMessageDialog(this.vista, getBundle("descripcionMascaraIncorrecta"),
+					getBundle("tituloMascaraIncorrecta"), 0);
 	}
 
 	private void showAnswer() {
-		this.vista.lblClass.setText(this.conversor.clase(octetos));
+		this.vista.lblClass.setText(this.conversor.clase(Integer.valueOf(octetos[0])));
 		this.vista.lblMaskDec.setText(mascaraRed);
 		this.vista.lblMaskBin.setText(this.conversor.ipBinaria(mascaraRed.split("\\.")));
 		this.vista.lblWildcardDec.setText(wildcard);
@@ -202,5 +204,9 @@ public class Controlador implements ActionListener, MouseListener {
 		this.vista.lblBroadcastDec.setText(ipBroadcast);
 		this.vista.lblBroadcastBin.setText(this.conversor.ipBinaria(ipBroadcast.split("\\.")));
 		this.vista.lblHost.setText(hosts);
+	}
+
+	private String getBundle(String key) {
+		return ResourceBundle.getBundle(Ventana.PROPERTIES).getString(key);
 	}
 }

@@ -9,40 +9,47 @@ public class Conversor {
 	}
 
 	public static Conversor getInstance() {
-		if (INSTANCE == null)
+		if (INSTANCE == null) {
 			INSTANCE = new Conversor();
-
+		}
 		return INSTANCE;
 	}
 
 	public int binarioDecimal(String binario, int base) {
 		int resultado = 0;
-		for (int i = binario.length() - 1, j = 0; i >= 0; i--, j++)
+		for (int i = binario.length() - 1, j = 0; i >= 0; i--, j++) {
 			resultado += Integer.parseInt("" + binario.charAt(i)) * elevar(base, j);
+		}
 		return resultado;
 	}
 
 	public String decimalBinario(int numero) {
 		StringBuilder binario = new StringBuilder();
-		if (numero == 0)
+		if (numero == 0) {
 			return "0";
-		for (int i = numero; i > 0; i /= 2)
+		}
+		for (int i = numero; i > 0; i /= 2) {
 			binario.append(i % 2);
+		}
 		return invertirCadena(binario.toString());
 	}
 
-	public String clase(String octetos[]) {
-		int clase = Integer.valueOf(octetos[0]);
-		if (clase >= 0 && clase <= 127)
+	public String clase(int clase) {
+		if (clase >= 0 && clase <= 127) {
 			return "A";
-		if (clase >= 128 && clase <= 191)
+		}
+		if (clase >= 128 && clase <= 191) {
 			return "B";
-		if (clase >= 192 && clase <= 223)
+		}
+		if (clase >= 192 && clase <= 223) {
 			return "C";
-		if (clase >= 224 && clase <= 239)
+		}
+		if (clase >= 224 && clase <= 239) {
 			return "D";
-		if (clase >= 240 && clase <= 255)
+		}
+		if (clase >= 240 && clase <= 255) {
 			return "E";
+		}
 		return "";
 	}
 
@@ -58,11 +65,13 @@ public class Conversor {
 
 	public String ipDecimal(String octetos[]) {
 		String decimales = "";
-		for (int i = 0; i < octetos.length; i++)
-			if (i < 3)
+		for (int i = 0; i < octetos.length; i++) {
+			if (i < 3) {
 				decimales += binarioDecimal(octetos[i], 2) + ".";
-			else
+			} else {
 				decimales += binarioDecimal(octetos[i], 2);
+			}
+		}
 		return decimales;
 	}
 
@@ -87,10 +96,11 @@ public class Conversor {
 	public String ipHost(String octetos[], int n) {
 		String host = "";
 		for (int i = 0; i < octetos.length; i++) {
-			if (i < 3)
+			if (i < 3) {
 				host += octetos[i] + ".";
-			else
+			} else {
 				host += (Integer.valueOf(octetos[i]) + n);
+			}
 		}
 		return host;
 	}
@@ -110,21 +120,24 @@ public class Conversor {
 	}
 
 	public int elevar(int b, int e) {
-		if (e == 0)
+		if (e == 0) {
 			return 1;
+		}
 		return b * elevar(b, e - 1);
 	}
 
 	public String invertirCadena(String numero) {
 		String resultado = "";
-		for (int i = numero.length() - 1; i >= 0; i--)
+		for (int i = numero.length() - 1; i >= 0; i--) {
 			resultado += numero.charAt(i);
+		}
 		return resultado;
 	}
 
 	public boolean validar(String datos) {
-		if (datos == null || datos.isEmpty())
+		if (datos == null || datos.isEmpty()) {
 			return false;
+		}
 
 		String octetos[] = datos.split("\\.");
 
@@ -132,13 +145,15 @@ public class Conversor {
 			String frase = octetos[i];
 			for (int j = 0; j < frase.length(); j++) {
 				char c = (char) frase.charAt(j);
-				if (c < 48 || c > 57 || octetos.length > 4 || !datos.contains("."))
+				if (c < 48 || c > 57 || octetos.length > 4 || !datos.contains(".")) {
 					return false;
+				}
 			}
 		}
 		for (int i = 0; i < 4; i++)
-			if ((Integer.valueOf(octetos[i]) < 0) || (Integer.valueOf(octetos[i]) > 255) || octetos[i].equals("."))
+			if ((Integer.valueOf(octetos[i]) < 0) || (Integer.valueOf(octetos[i]) > 255) || octetos[i].equals(".")) {
 				return false;
+			}
 		return true;
 	}
 
@@ -151,10 +166,11 @@ public class Conversor {
 	public String divIP(String ip) {
 		String res = "";
 		for (int i = 0, j = 8; i < 32; i += 8, j += 8) {
-			if (i < 24)
+			if (i < 24) {
 				res += ip.substring(i, j) + ".";
-			else
+			} else {
 				res += ip.substring(i, j);
+			}
 		}
 		return res;
 	}
