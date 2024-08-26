@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -31,8 +32,7 @@ public class Controlador implements ActionListener, MouseListener {
 	private String mascaraRed;
 	private String wildcard;
 	private String hosts;
-
-	Logger log = Logger.getLogger(Controlador.class.getName());
+	private Logger log = Logger.getLogger(Controlador.class.getName());
 
 	public Controlador(Ventana vista, Conversor conversor) {
 		this.vista = vista;
@@ -129,7 +129,7 @@ public class Controlador implements ActionListener, MouseListener {
 		this.vista.lblRedDec.setText("");
 		this.vista.lblRedBin.setText("");
 		this.vista.lblHostMinDec.setText("");
-		this.vista.lblHostMinDec.setText("");
+		this.vista.lblHostMinBin.setText("");
 		this.vista.lblHostMaxDec.setText("");
 		this.vista.lblHostMaxBin.setText("");
 		this.vista.lblBroadcastDec.setText("");
@@ -207,6 +207,11 @@ public class Controlador implements ActionListener, MouseListener {
 	}
 
 	private String getBundle(String key) {
-		return ResourceBundle.getBundle(Ventana.PROPERTIES).getString(key);
+		try {
+			return ResourceBundle.getBundle(Ventana.PROPERTIES).getString(key);
+		} catch (MissingResourceException ex) {
+			log.severe("Recurso no encontrado para clave: ".concat(key));
+			return null;
+		}
 	}
 }

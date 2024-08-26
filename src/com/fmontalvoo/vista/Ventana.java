@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -19,11 +20,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 public class Ventana extends JFrame {
-
 	private static final long serialVersionUID = 2375984707135285564L;
 
+	private static final String CONSOLAS = "Consolas";
 	public static final String PROPERTIES = "com.fmontalvoo.i18n.Etiquetas";
-	private final String CONSOLAS = "Consolas";
 
 	private JPanel contentPane;
 	public JTextField txtIP;
@@ -183,8 +183,8 @@ public class Ventana extends JFrame {
 		contentPane.add(btnReiniciar, gbc_btnReiniciar);
 
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, getBundle("tituloPanel"), TitledBorder.CENTER,
-				TitledBorder.TOP, null, null));
+		panel.setBorder(
+				new TitledBorder(null, getBundle("tituloPanel"), TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridwidth = 7;
@@ -485,7 +485,11 @@ public class Ventana extends JFrame {
 	}
 
 	private String getBundle(String key) {
-		return ResourceBundle.getBundle(PROPERTIES).getString(key);
+		try {
+			return ResourceBundle.getBundle(PROPERTIES).getString(key);
+		} catch (MissingResourceException ex) {
+			return null;
+		}
 	}
 
 }
